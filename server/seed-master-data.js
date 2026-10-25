@@ -87,15 +87,55 @@ async function seedMasterData() {
       console.log(`• Database already has ${existingSuppliersCount} suppliers. Skipping.`);
     }
 
+    // 3. Non-destructively seed sample invoice
+    console.log('\n--- Syncing Invoices ---');
+    const Invoice = require('./src/models/Invoice');
+    const invoiceCount = await Invoice.countDocuments();
+    if (invoiceCount === 0) {
+      const sampleP = await Product.findOne({ name: /Keyboard/i });
+      if (sampleP) {
+        await Invoice.create({
+          invoiceNumber: 'INV-2026-1001',
+          customer: {
+            name: 'Aakash Mehta',
+            phone: '+91 98765 11223',
+            email: 'aakash.mehta@example.com',
+            address: '12 Indiranagar, Bengaluru'
+          },
+          items: [
+            {
+              productId: sampleP._id,
+              name: sampleP.name,
+              price: sampleP.price,
+              quantity: 1,
+              total: sampleP.price
+            }
+          ],
+          subtotal: sampleP.price,
+          taxRate: 5,
+          taxAmount: Number(((sampleP.price * 5) / 100).toFixed(2)),
+          grandTotal: Number((sampleP.price * 1.05).toFixed(2)),
+          paymentMethod: 'UPI',
+          status: 'Completed',
+          notes: 'Walk-in customer payment via UPI QR code'
+        });
+        console.log('✓ Seeded initial sample invoice INV-2026-1001');
+      }
+    } else {
+      console.log(`• Database already has ${invoiceCount} invoice records. Skipping.`);
+    }
+
     const totalCats = await Category.countDocuments();
     const totalSups = await Supplier.countDocuments();
     const totalProds = await Product.countDocuments();
+    const totalInvs = await Invoice.countDocuments();
 
     console.log(`\n========================================`);
     console.log(` Master Data Summary:`);
     console.log(` Categories: ${totalCats}`);
     console.log(` Suppliers:  ${totalSups}`);
     console.log(` Products:   ${totalProds} (Preserved intact)`);
+    console.log(` Invoices:   ${totalInvs}`);
     console.log(`========================================\n`);
 
     await mongoose.disconnect();

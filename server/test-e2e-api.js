@@ -1,11 +1,20 @@
 const app = require('./src/server');
 
 async function testApi() {
-  // Wait 1.5 seconds for mongoose connection in server.js to establish
-  await new Promise(r => setTimeout(r, 1500));
-
   const PORT = process.env.PORT || 5000;
   const baseUrl = `http://localhost:${PORT}/api`;
+
+  let localServer;
+  try {
+    const healthCheck = await fetch(`${baseUrl}/health`).catch(() => null);
+    if (!healthCheck || !healthCheck.ok) {
+      localServer = app.listen(PORT);
+      await new Promise(r => setTimeout(r, 1000));
+    }
+  } catch (e) {
+    localServer = app.listen(PORT);
+    await new Promise(r => setTimeout(r, 1000));
+  }
 
   console.log('\n--- Running End-to-End Server API Tests ---');
 

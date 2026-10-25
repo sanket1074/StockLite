@@ -11,7 +11,8 @@
     "seed:master": "node server/seed-master-data.js",
     "test:suite": "node server/test-suite.js",
     "test:api": "node server/test-e2e-api.js",
-    "test:phase2": "node server/test-phase2-api.js"
+    "test:phase2": "node server/test-phase2-api.js",
+    "test:phase3": "node server/test-phase3-api.js"
   },
   "keywords": ["mern", "inventory", "management", "stocklite", "mca"],
   "author": "",

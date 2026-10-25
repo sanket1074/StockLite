@@ -11,6 +11,8 @@ import Toast from './components/Toast';
 import AddProductPage from './components/AddProductPage';
 import CategoriesPage from './components/CategoriesPage';
 import SuppliersPage from './components/SuppliersPage';
+import SalesPage from './components/SalesPage';
+import InvoicesPage from './components/InvoicesPage';
 import PlaceholderPage from './components/PlaceholderPage';
 import {
   FolderTree,
@@ -380,18 +382,9 @@ function App() {
 
       case 'sales':
         return (
-          <PlaceholderPage
-            title="Sales Terminal (POS)"
-            icon={ShoppingCart}
-            phase="Phase 3: Sales & Invoicing"
-            description="Point of Sale checkout interface with automatic stock reduction"
-            plannedFeatures={[
-              'Interactive cart builder with instant SKU search and price lookups',
-              'Real-time inventory availability validation (prevents overselling)',
-              'Automatic inventory reduction upon sale completion',
-              'Instant generation of numbered tax invoice / receipt'
-            ]}
-            onNavigate={handleNavigate}
+          <SalesPage
+            addToast={addToast}
+            onInventoryUpdated={fetchProducts}
           />
         );
 
@@ -414,18 +407,9 @@ function App() {
 
       case 'invoices':
         return (
-          <PlaceholderPage
-            title="Receipts & Invoices Registry"
-            icon={Receipt}
-            phase="Phase 3: Sales & Invoicing"
-            description="Persistent historical invoice ledger with print-ready receipt generator"
-            plannedFeatures={[
-              'Unique sequential invoice identifiers (e.g. INV-2026-0001)',
-              'Full line-item breakdown with customer info, taxes, and totals',
-              'Print-ready professional invoice modal (formatted for window.print())',
-              'Safe invoice voiding/cancellation with automatic stock return'
-            ]}
-            onNavigate={handleNavigate}
+          <InvoicesPage
+            addToast={addToast}
+            onInventoryUpdated={fetchProducts}
           />
         );
 

@@ -5,9 +5,20 @@ require('dotenv').config();
 const app = require('./src/server');
 
 async function testPhase2() {
-  await new Promise(r => setTimeout(r, 1500));
   const PORT = process.env.PORT || 5000;
   const baseUrl = `http://localhost:${PORT}/api`;
+
+  let localServer;
+  try {
+    const healthCheck = await fetch(`${baseUrl}/health`).catch(() => null);
+    if (!healthCheck || !healthCheck.ok) {
+      localServer = app.listen(PORT);
+      await new Promise(r => setTimeout(r, 1000));
+    }
+  } catch (e) {
+    localServer = app.listen(PORT);
+    await new Promise(r => setTimeout(r, 1000));
+  }
 
   console.log('\n--- Running Phase 2 Categories & Suppliers API Tests ---');
 

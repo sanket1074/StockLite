@@ -10,6 +10,7 @@ const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const supplierRoutes = require('./routes/supplierRoutes');
+const invoiceRoutes = require('./routes/invoiceRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -54,6 +55,7 @@ app.get('/api/health', (req, res) => {
 app.use('/api/products', productRoutes);
 app.use('/api/categories', categoryRoutes);
 app.use('/api/suppliers', supplierRoutes);
+app.use('/api/invoices', invoiceRoutes);
 
 // Root greeting endpoint
 app.get('/', (req, res) => {
@@ -88,13 +90,16 @@ app.use((err, req, res, next) => {
 });
 
 // Start Express server
-const server = app.listen(PORT, () => {
-  console.log(`=================================================`);
-  console.log(` StockLite Server running on port ${PORT}`);
-  console.log(` Health check: http://localhost:${PORT}/api/health`);
-  console.log(` Products API: http://localhost:${PORT}/api/products`);
-  console.log(`=================================================`);
-});
+let server;
+if (require.main === module) {
+  server = app.listen(PORT, () => {
+    console.log(`=================================================`);
+    console.log(` StockLite Server running on port ${PORT}`);
+    console.log(` Health check: http://localhost:${PORT}/api/health`);
+    console.log(` Products API: http://localhost:${PORT}/api/products`);
+    console.log(`=================================================`);
+  });
+}
 
 // Handle unhandled promise rejections
 process.on('unhandledRejection', (err) => {
