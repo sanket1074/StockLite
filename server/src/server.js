@@ -8,6 +8,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 const connectDB = require('./config/db');
 const productRoutes = require('./routes/productRoutes');
+const categoryRoutes = require('./routes/categoryRoutes');
+const supplierRoutes = require('./routes/supplierRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -48,8 +50,10 @@ app.get('/api/health', (req, res) => {
   });
 });
 
-// Product API routes
+// API routes
 app.use('/api/products', productRoutes);
+app.use('/api/categories', categoryRoutes);
+app.use('/api/suppliers', supplierRoutes);
 
 // Root greeting endpoint
 app.get('/', (req, res) => {

@@ -9,6 +9,8 @@ import DeleteConfirmModal from './components/DeleteConfirmModal';
 import DatabaseAlert from './components/DatabaseAlert';
 import Toast from './components/Toast';
 import AddProductPage from './components/AddProductPage';
+import CategoriesPage from './components/CategoriesPage';
+import SuppliersPage from './components/SuppliersPage';
 import PlaceholderPage from './components/PlaceholderPage';
 import {
   FolderTree,
@@ -363,35 +365,16 @@ function App() {
 
       case 'categories':
         return (
-          <PlaceholderPage
-            title="Category Master Management"
-            icon={FolderTree}
-            phase="Phase 2: Master Data"
-            description="Manage and structure merchandise departments and product classifications"
-            plannedFeatures={[
-              'Create, edit, and delete merchandise categories',
-              'Auto-aggregated SKU count and total valuation per category',
-              'Category-level stock threshold defaults',
-              'Instant category assignment in product creation'
-            ]}
-            onNavigate={handleNavigate}
+          <CategoriesPage
+            onCategoryChanged={fetchProducts}
+            addToast={addToast}
           />
         );
 
       case 'suppliers':
         return (
-          <PlaceholderPage
-            title="Supplier & Vendor Directory"
-            icon={Truck}
-            phase="Phase 2: Master Data"
-            description="Centralized directory of vendors, procurement partners, and terms"
-            plannedFeatures={[
-              'Vendor directory with primary contact, phone, email, and facility address',
-              'Procurement order history and inbound fulfillment tracking',
-              'Vendor terms, payment cycles, and commercial notes',
-              'Direct association with Purchase Orders in Phase 4'
-            ]}
-            onNavigate={handleNavigate}
+          <SuppliersPage
+            addToast={addToast}
           />
         );
 

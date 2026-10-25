@@ -1,20 +1,19 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Plus, ArrowLeft, Check, Sparkles } from 'lucide-react';
 
-const COMMON_CATEGORIES = [
+const DEFAULT_CATEGORIES = [
   'Electronics',
-  'Computers & Accessories',
-  'Mobile & Tablets',
-  'Office Supplies',
+  'Furniture',
   'Stationery',
-  'Hardware & Tools',
   'Packaging Materials',
-  'Clothing & Apparel',
-  'Groceries & FMCG',
+  'Office Supplies',
+  'Computers & Accessories',
+  'Hardware & Tools',
   'Healthcare'
 ];
 
 const AddProductPage = ({ onSubmit, onCancel, isSubmitting = false }) => {
+  const [categoriesList, setCategoriesList] = useState(DEFAULT_CATEGORIES);
   const [formData, setFormData] = useState({
     name: '',
     category: '',
@@ -24,6 +23,19 @@ const AddProductPage = ({ onSubmit, onCancel, isSubmitting = false }) => {
   });
 
   const [errors, setErrors] = useState({});
+
+  useEffect(() => {
+    fetch('/api/categories')
+      .then(res => res.json())
+      .then(data => {
+        if (data.success && Array.isArray(data.data) && data.data.length > 0) {
+          const fetchedNames = data.data.map(c => c.name);
+          const merged = [...new Set([...fetchedNames, ...DEFAULT_CATEGORIES])];
+          setCategoriesList(merged);
+        }
+      })
+      .catch(err => console.error('Error fetching categories in AddProductPage:', err));
+  }, []);
 
   const validate = () => {
     const newErrors = {};
@@ -126,7 +138,7 @@ const AddProductPage = ({ onSubmit, onCancel, isSubmitting = false }) => {
                 onChange={(e) => handleChange('category', e.target.value)}
               />
               <datalist id="add-category-suggestions">
-                {COMMON_CATEGORIES.map((c) => (
+                {categoriesList.map((c) => (
                   <option key={c} value={c} />
                 ))}
               </datalist>
