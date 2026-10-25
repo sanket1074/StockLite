@@ -14,6 +14,9 @@ import SuppliersPage from './components/SuppliersPage';
 import SalesPage from './components/SalesPage';
 import InvoicesPage from './components/InvoicesPage';
 import PlaceholderPage from './components/PlaceholderPage';
+import PurchaseOrdersPage from './components/PurchaseOrdersPage';
+import ReportsPage from './components/ReportsPage';
+import SettingsPage from './components/SettingsPage';
 import {
   FolderTree,
   Truck,
@@ -388,22 +391,10 @@ function App() {
           />
         );
 
-      case 'purchases':
-        return (
-          <PlaceholderPage
-            title="Purchase Orders & Inbound Goods"
-            icon={ShoppingBag}
-            phase="Phase 4: Purchase Orders"
-            description="Vendor procurement order management with inventory replenishment"
-            plannedFeatures={[
-              'Draft procurement purchase orders with line-item unit costs',
-              'Vendor selection linked to the Suppliers master directory',
-              'Order status workflow: Draft -> Ordered -> Received',
-              'Automatic inventory stock increment only when marked "Received"'
-            ]}
-            onNavigate={handleNavigate}
-          />
-        );
+      
+case 'purchases':
+  return <PurchaseOrdersPage />;
+
 
       case 'invoices':
         return (
@@ -413,40 +404,15 @@ function App() {
           />
         );
 
-      case 'reports':
-        return (
-          <PlaceholderPage
-            title="ERP Analytics & Reports"
-            icon={BarChart3}
-            phase="Phase 5: Reports & Intelligence"
-            description="Executive business intelligence, valuation, and sales analytics"
-            plannedFeatures={[
-              'Total Inventory Valuation report across departments',
-              'Sales revenue, transaction volume, and margin breakdown',
-              'Stock movement ledger (sales depletion vs. inbound PO receipts)',
-              'Fast-moving vs. slow-moving stock diagnostics'
-            ]}
-            onNavigate={handleNavigate}
-          />
-        );
+    
+case 'reports':
+  return <ReportsPage />;
 
-      case 'settings':
-        return (
-          <PlaceholderPage
-            title="ERP System Settings"
-            icon={SettingsIcon}
-            phase="Phase 5: Settings"
-            description="Store identity, currency tokens, and business parameters"
-            plannedFeatures={[
-              'Store / Company legal name, contact phone, and billing address',
-              'Currency symbol preference (₹ INR default, $, €)',
-              'Default tax percentage and invoice notes template',
-              'Low-stock threshold customization (default: 5 units)',
-              'Non-destructive sample data seeder trigger'
-            ]}
-            onNavigate={handleNavigate}
-          />
-        );
+
+      
+case 'settings':
+  return <SettingsPage />;
+
 
       default:
         return <div>Unknown Page</div>;

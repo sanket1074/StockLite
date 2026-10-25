@@ -11,7 +11,8 @@ const productRoutes = require('./routes/productRoutes');
 const categoryRoutes = require('./routes/categoryRoutes');
 const supplierRoutes = require('./routes/supplierRoutes');
 const invoiceRoutes = require('./routes/invoiceRoutes');
-
+const purchaseOrderRoutes = require('./routes/purchaseOrderRoutes');
+const settingRoutes = require('./routes/settingRoutes');
 const app = express();
 const PORT = process.env.PORT || 5000;
 
@@ -22,7 +23,8 @@ connectDB();
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-
+app.use('/api/purchase-orders', purchaseOrderRoutes);
+app.use('/api/settings', settingRoutes);
 // Request logger for development
 app.use((req, res, next) => {
   console.log(`[${new Date().toISOString()}] ${req.method} ${req.url}`);

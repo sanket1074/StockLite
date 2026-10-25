@@ -1712,3 +1712,277 @@
     position: static;
   }
 }
+
+/* Purchase Orders - ERP styling */
+.purchase-orders-page {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 24px;
+  color: #172033;
+}
+
+.purchase-orders-page .page-heading h2 {
+  margin: 0 0 6px;
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.purchase-orders-page .page-heading p {
+  margin: 0;
+  color: #64748b;
+}
+
+.purchase-orders-page section.card {
+  background: #ffffff;
+  border: 1px solid #e5eaf2;
+  border-radius: 16px;
+  box-shadow: 0 4px 18px rgba(15, 23, 42, 0.04);
+}
+
+.purchase-orders-page section.card h3 {
+  margin: 0 0 22px;
+  font-size: 19px;
+  font-weight: 700;
+}
+
+.purchase-orders-page label {
+  display: block;
+  margin-bottom: 7px;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.purchase-orders-page select,
+.purchase-orders-page input {
+  width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
+  padding: 11px 12px;
+  color: #172033;
+  background: #ffffff;
+  border: 1px solid #dbe2ec;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.purchase-orders-page select:focus,
+.purchase-orders-page input:focus {
+  border-color: #5b4be8;
+  box-shadow: 0 0 0 3px rgba(91, 75, 232, 0.12);
+}
+
+.purchase-orders-page button {
+  padding: 10px 15px;
+  color: #ffffff;
+  background: #5145e5;
+  border: 1px solid #5145e5;
+  border-radius: 9px;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.purchase-orders-page button:hover:not(:disabled) {
+  background: #4035c8;
+}
+
+.purchase-orders-page button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.purchase-orders-page table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+}
+
+.purchase-orders-page th {
+  padding: 14px 12px;
+  color: #64748b;
+  background: #f8fafc;
+  text-align: left;
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.purchase-orders-page td {
+  padding: 15px 12px;
+  border-bottom: 1px solid #edf0f5;
+  vertical-align: middle;
+}
+
+.purchase-orders-page tbody tr:hover {
+  background: #fafaff;
+}
+
+.purchase-orders-page td button {
+  margin: 3px;
+}
+
+@media (max-width: 768px) {
+  .purchase-orders-page {
+    padding: 14px;
+    gap: 16px;
+  }
+
+  .purchase-orders-page form > div[style] {
+    grid-template-columns: 1fr !important;
+  }
+
+  .purchase-orders-page section.card {
+    padding: 16px !important;
+  }
+}
+
+/* Reports page improvements */
+.reports-page {
+  width: 100%;
+  min-width: 0;
+}
+
+.reports-page table {
+  width: 100%;
+  border-collapse: collapse;
+  table-layout: auto;
+}
+
+.reports-page th,
+.reports-page td {
+  padding: 15px 18px;
+  text-align: left;
+  white-space: nowrap;
+  border-bottom: 1px solid #e8edf5;
+}
+
+.reports-page th {
+  background: #f8fafc;
+  color: #475569;
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+
+.reports-page td {
+  color: #334155;
+  font-size: 14px;
+}
+
+.reports-page tbody tr:hover {
+  background: #f8faff;
+}
+
+.reports-page > * {
+  min-width: 0;
+}
+
+.reports-page .inventory-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  background: #fff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+/* Premium inventory report table */
+.inventory-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+  border-radius: 0 0 16px 16px;
+}
+
+.inventory-table-wrapper table {
+  width: 100%;
+  min-width: 760px;
+  border-collapse: separate;
+  border-spacing: 0;
+  background: #ffffff;
+}
+
+.inventory-table-wrapper thead th {
+  padding: 16px 20px;
+  background: #f8fafc;
+  color: #64748b;
+  font-size: 12px;
+  font-weight: 700;
+  text-align: left;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.inventory-table-wrapper tbody td {
+  padding: 17px 20px;
+  color: #334155;
+  font-size: 14px;
+  border-bottom: 1px solid #edf0f5;
+}
+
+.inventory-table-wrapper tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.inventory-table-wrapper tbody tr:hover {
+  background: #f8faff;
+}
+
+.inventory-table-wrapper tbody td:first-child {
+  color: #0f172a;
+  font-weight: 600;
+  min-width: 220px;
+}
+
+.inventory-table-wrapper tbody td:nth-child(3),
+.inventory-table-wrapper thead th:nth-child(3) {
+  text-align: center;
+}
+
+.inventory-table-wrapper tbody td:nth-child(4),
+.inventory-table-wrapper tbody td:nth-child(5) {
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+/* Reports metric cards */
+.reports-page .stat-card,
+.reports-page .report-card,
+.reports-page .metric-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.reports-page .stat-card:hover,
+.reports-page .report-card:hover,
+.reports-page .metric-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.08);
+}
+
+/* Inventory report card */
+.table-card {
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  background: #ffffff;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.04);
+}
+
+.table-header-bar {
+  padding: 20px 26px;
+  border-bottom: 1px solid #e8edf5;
+}
+
+.table-header-title h3 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 700;
+  color: #0f172a;
+}
