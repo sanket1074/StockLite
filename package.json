@@ -1,0 +1,17 @@
+{
+  "name": "stocklite-root",
+  "version": "1.0.0",
+  "description": "StockLite — Inventory Management System (MERN Stack MCA Assessment)",
+  "scripts": {
+    "dev:server": "npm --prefix server run dev",
+    "dev:client": "npm --prefix client run dev",
+    "start:server": "npm --prefix server start",
+    "build:client": "npm --prefix client run build",
+    "seed": "npm --prefix server run seed",
+    "test:suite": "node server/test-suite.js",
+    "test:api": "node server/test-e2e-api.js"
+  },
+  "keywords": ["mern", "inventory", "management", "stocklite", "mca"],
+  "author": "",
+  "license": "ISC"
+}
