@@ -17,6 +17,13 @@ import PlaceholderPage from './components/PlaceholderPage';
 import PurchaseOrdersPage from './components/PurchaseOrdersPage';
 import ReportsPage from './components/ReportsPage';
 import SettingsPage from './components/SettingsPage';
+import LoginPage from './components/LoginPage';
+import InventoryTabs from './components/InventoryTabs';
+import SalesTabs from './components/SalesTabs';
+import ProcurementTabs from './components/ProcurementTabs';
+import DataExportPage from './components/DataExportPage';
+import PrintReportsPage from './components/PrintReportsPage';
+import NotificationsPage from './components/NotificationsPage';
 import {
   FolderTree,
   Truck,
@@ -38,6 +45,8 @@ const API_BASE = '/api';
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+const [loggedInUser, setLoggedInUser] = useState('');
   const [products, setProducts] = useState([]);
   const [summary, setSummary] = useState({
     totalProducts: 0,
@@ -141,7 +150,11 @@ function App() {
       setOnlyLowStock(false);
     }
   };
-
+const handleLogout = () => {
+  setIsLoggedIn(false);
+  setLoggedInUser('');
+  setCurrentPage('dashboard');
+};
   // Create or Update Product
   const handleProductSubmit = async (formData) => {
     setIsSubmitting(true);
@@ -311,8 +324,13 @@ function App() {
 
       case 'products':
         return (
-          <div className="page-container">
-            <FilterBar
+         <div className="page-container">
+  <InventoryTabs
+    currentPage={currentPage}
+    onNavigate={handleNavigate}
+  />
+
+  <FilterBar
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
               selectedCategory={selectedCategory}
@@ -343,6 +361,10 @@ function App() {
       case 'stock-alerts':
         return (
           <div className="page-container">
+            <InventoryTabs
+  currentPage={currentPage}
+  onNavigate={handleNavigate}
+/>
             <div className="placeholder-notice" style={{ backgroundColor: '#fffbeb', borderColor: '#fde68a' }}>
               <div className="notice-icon">
                 <AlertTriangle size={22} color="#d97706" />
@@ -369,40 +391,74 @@ function App() {
         );
 
       case 'categories':
+  return (
+    <div className="page-container">
+      <InventoryTabs
+        currentPage={currentPage}
+        onNavigate={handleNavigate}
+      />
+      <CategoriesPage
+        onCategoryChanged={fetchProducts}
+        addToast={addToast}
+      />
+    </div>
+  );
+case 'data-export':
+  return <DataExportPage />;
+    case 'suppliers':
         return (
-          <CategoriesPage
-            onCategoryChanged={fetchProducts}
-            addToast={addToast}
-          />
+          <div className="page-container">
+            <ProcurementTabs
+              currentPage={currentPage}
+              onNavigate={handleNavigate}
+            />
+            <SuppliersPage
+              addToast={addToast}
+            />
+          </div>
         );
-
-      case 'suppliers':
-        return (
-          <SuppliersPage
-            addToast={addToast}
-          />
-        );
-
+case 'print-reports':
+  return <PrintReportsPage />;
+      
       case 'sales':
         return (
-          <SalesPage
-            addToast={addToast}
-            onInventoryUpdated={fetchProducts}
-          />
+          <div className="page-container">
+            <SalesTabs
+              currentPage={currentPage}
+              onNavigate={handleNavigate}
+            />
+            <SalesPage
+              addToast={addToast}
+              onInventoryUpdated={fetchProducts}
+            />
+          </div>
         );
 
-      
-case 'purchases':
-  return <PurchaseOrdersPage />;
-
+           case 'purchases':
+        return (
+          <div className="page-container">
+            <ProcurementTabs
+              currentPage={currentPage}
+              onNavigate={handleNavigate}
+            />
+            <PurchaseOrdersPage />
+          </div>
+        );
 
       case 'invoices':
         return (
-          <InvoicesPage
-            addToast={addToast}
-            onInventoryUpdated={fetchProducts}
-          />
+          <div className="page-container">
+            <SalesTabs
+              currentPage={currentPage}
+              onNavigate={handleNavigate}
+            />
+            <InvoicesPage
+              addToast={addToast}
+              onInventoryUpdated={fetchProducts}
+            />
+          </div>
         );
+
 
     
 case 'reports':
@@ -413,13 +469,29 @@ case 'reports':
 case 'settings':
   return <SettingsPage />;
 
+case 'notifications':
+  return (
+    <NotificationsPage onNavigate={handleNavigate} />
+  );
+
 
       default:
         return <div>Unknown Page</div>;
     }
   };
 
+  if (!isLoggedIn) {
   return (
+    <LoginPage
+      onLogin={(username) => {
+        setLoggedInUser(username);
+        setIsLoggedIn(true);
+      }}
+    />
+  );
+}
+
+return (
     <div className="app-layout">
       {/* Toast Notifications */}
       <Toast toasts={toasts} onDismiss={removeToast} />
@@ -436,6 +508,10 @@ case 'settings':
       <div className="main-wrapper">
         <Header
           currentPage={currentPage}
+            loggedInUser={loggedInUser}
+            onNavigate={handleNavigate}
+            
+  onLogout={handleLogout}
           onOpenAddModal={() => {
             setEditingProduct(null);
             setIsModalOpen(true);
