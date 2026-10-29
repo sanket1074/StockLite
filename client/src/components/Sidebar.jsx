@@ -69,11 +69,7 @@ const Sidebar = ({
               badge: lowStockCount > 0 ? lowStockCount : null,
               badgeColor: '#f59e0b'
             },
-            {
-              id: 'stock-history',
-              label: 'Stock Adjustment History',
-              icon: History
-            }
+          
           ]
         }
       ]

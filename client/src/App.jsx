@@ -24,6 +24,7 @@ import ProcurementTabs from './components/ProcurementTabs';
 import DataExportPage from './components/DataExportPage';
 import PrintReportsPage from './components/PrintReportsPage';
 import NotificationsPage from './components/NotificationsPage';
+import CustomersPage from './components/CustomersPage';
 import {
   FolderTree,
   Truck,
@@ -473,7 +474,8 @@ case 'notifications':
   return (
     <NotificationsPage onNavigate={handleNavigate} />
   );
-
+case 'customers':
+  return <CustomersPage />;
 
       default:
         return <div>Unknown Page</div>;
